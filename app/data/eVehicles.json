@@ -1,0 +1,24 @@
+[
+    {
+        "id": 46,
+        "name": "Zoe RATHAUS",
+        "plate": "EBE-CU 99E",
+        "caretaker": "Mischa Soujon",
+        "email": "m_soujon@web.de",
+        "phone": "+49 170 9263 165",
+        "zoeph": 2,
+        "vin": "VF1AG000161438723",
+        "countryOfRegistration": "DE"
+    },
+    {
+        "id": 26,
+        "name": "Zoe 2 ROTKREUZSTR.",
+        "plate": "EBE-CU 89E",
+        "caretaker": "Torsten Hauberg",
+        "email": "torsten.hauberg@t-online.de",
+        "phone": "+49 812 1404 21",
+        "zoeph": 2,
+        "vin": "VF1AG000268925498",
+        "countryOfRegistration": "DE"
+    }
+]

@@ -1,0 +1,38 @@
+{
+  "name": "zoe-status-fetcher",
+  "version": "0.9.0",
+  "description": "JavaScript Programm, um die Statusdaten vom Auto auf der WebSeite zuzeigen.",
+  "main": "server.js",
+  "repository": "git@github.com:CoolMischa/ZoePHP.git",
+  "author": "MNischa Soujon",
+  "email": "mischa@soujon-net.de",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "^18.12.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo 'not yet implemented'",
+    "build": "echo 'nothing to do'"
+  },
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "prettier": "^2.8.3"
+  },
+  "dependencies": {
+    "axios": "^1.2.3",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0"
+  }
+}

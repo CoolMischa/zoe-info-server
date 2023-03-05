@@ -1,0 +1,8 @@
+{
+    "origin": [
+        "https://www.cms-carsharing.de",
+        "http://localhost:8081",
+        "http://localhost"
+    ],
+    "preflightContinue": false
+}
