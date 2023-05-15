@@ -20,6 +20,7 @@ class BackendConnector {
   // The base URLs
   GIGYA_URL = 'https://accounts.eu1.gigya.com';
   KAMEREON_URL = 'https://api-wired-prod-1-euw1.wrd-aws.com/commerce/v1';
+  KAMEREON_API_KEY = process.env.KAMEREON_API_KEY || apiKeys['kamereon_api']
   OPENWEATHER_URL = 'https://api.openweathermap.org/data/2.5';
   ABRP_URL = 'https://api.iternio.com/1/tlm';
 
@@ -87,7 +88,7 @@ class BackendConnector {
       .then((response) => {
         this.idToken = response['data']['id_token'];
         this.kamereonApiHeaders = {
-          apikey: apiKeys['kamereon_api'],
+          apikey: this.KAMEREON_API_KEY,
           'x-gigya-id_token': this.idToken,
         };
         return this.#retrieveRenaultAccountId();

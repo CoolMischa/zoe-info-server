@@ -9,6 +9,7 @@ podman run -it --rm --name zoe-info -p8080:8080 \
         -e MAIL_BATTERY_CHARGED=0 \
         -e MAP_PROVIDER=osm \
         -e WEATHER_API_KEY=<Dein Weather-API Key> \
+        -e KAMEREON_API_KEY=<der aktuelle KAMEREON-API Key> \
         cms-zoe-info:latest 
 
 podman run -d --name zoe-info -p8080:8080 \
@@ -21,4 +22,5 @@ podman run -d --name zoe-info -p8080:8080 \
         -e MAIL_BATTERY_CHARGED=0 \
         -e MAP_PROVIDER=osm \
         -e WEATHER_API_KEY=<Dein Weather-API Key> \
+        -e KAMEREON_API_KEY=<der aktuelle KAMEREON-API Key> \
         cms-zoe-info:latest 
