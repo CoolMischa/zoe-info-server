@@ -4,7 +4,7 @@
   "description": "JavaScript Programm, um die Statusdaten vom Auto auf der WebSeite zuzeigen.",
   "main": "server.js",
   "repository": "git@github.com:CoolMischa/ZoePHP.git",
-  "author": "MNischa Soujon",
+  "author": "Mischa Soujon",
   "email": "mischa@soujon-net.de",
   "license": "MIT",
   "private": true,
