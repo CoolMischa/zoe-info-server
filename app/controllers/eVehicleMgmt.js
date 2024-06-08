@@ -232,7 +232,7 @@ exports.findWebDataByID = async (req, res) => {
   response = await retrieveAllVehicleData(vehicle);
   const cockpit = response.cockpit;
   const attributes = cockpit.data.attributes;
-  htmlFragment += `<div>Kilometerstand: <em>${attributes.totalMileage}</em> km%</div>`;
+  htmlFragment += `<div>Kilometerstand: <em>${attributes.totalMileage}</em> km</div>`;
 
   const battery = response.battery;
   if (battery['status'] === 'error') {
