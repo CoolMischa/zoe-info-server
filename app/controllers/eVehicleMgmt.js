@@ -122,6 +122,62 @@ const bc = new BackendController();
 
 const eVehicles = require('../data/eVehicles.json');
 
+const retrieveAllVehicleData = async (vehicle) => {
+  let responseData = { vehicle: vehicle };
+
+  let response = await bc.retrieveBatteryStatus(vehicle.vin);
+  if (response['status'] === 'error') {
+    responseData.battery = {
+      status: 'error',
+      message: 'no battery status available',
+    };
+  } else {
+    responseData.battery = response['data'];
+  }
+
+  response = await bc.retrieveCockpitData(vehicle.vin);
+  if (response['status'] === 'error') {
+    responseData.cockpit = {
+      status: 'error',
+      message: 'no cockpit data available',
+    };
+  } else {
+    responseData.cockpit = response['data'];
+  }
+
+  response = await bc.retrieveChargeMode(vehicle.vin);
+  if (response['status'] === 'error') {
+    responseData.chargeMode = {
+      status: 'error',
+      message: 'no charge mode available',
+    };
+  } else {
+    responseData.chargeMode = response['data'];
+  }
+
+  response = await bc.retrieveOutsideTemperature(vehicle.vin);
+  if (response['status'] === 'error') {
+    responseData.outside = {
+      status: 'error',
+      message: 'no outside temperature available',
+    };
+  } else {
+    responseData.outside = response['data'];
+  }
+
+  response = await bc.retrieveLocation(vehicle.vin);
+  if (response['status'] === 'error') {
+    responseData.location = {
+      status: 'error',
+      message: 'no location available',
+    };
+  } else {
+    responseData.location = response['data'];
+  }
+
+  return responseData;
+};
+
 /**
  * Looks up the vehicle by id in the eVehicles data.
  *
@@ -142,53 +198,18 @@ exports.findDataByID = async (req, res) => {
   if (vehicle == undefined) {
     const response = { error: `vehicle with id ${vehicleID} not found.` };
     res.status(404).send(response);
-    return
+    return;
   }
 
   let response = await bc.login();
   if (response['status'] === 'error') {
     res.status(401).send(response);
-    return
+    return;
   }
 
-  let responseData = { vehicle: vehicle };
+  response = await retrieveAllVehicleData(vehicle);
 
-  response = await bc.retrieveBatteryStatus(vehicle.vin);
-  if (response['status'] === 'error') {
-    responseData.battery = { message: 'no battery status available' };
-  } else {
-    responseData.battery = response['data'];
-  }
-
-  response = await bc.retrieveCockpitData(vehicle.vin);
-  if (response['status'] === 'error') {
-    responseData.cockpit = { message: 'no cockpit data available' };
-  } else {
-    responseData.cockpit = response['data'];
-  }
-
-  response = await bc.retrieveChargeMode(vehicle.vin);
-  if (response['status'] === 'error') {
-    responseData.chargeMode = { message: 'no charge mode available' };
-  } else {
-    responseData.chargeMode = response['data'];
-  }
-
-  response = await bc.retrieveOutsideTemperature(vehicle.vin);
-  if (response['status'] === 'error') {
-    responseData.outside = { message: 'no outside temperature available' };
-  } else {
-    responseData.outside = response['data'];
-  }
-
-  response = await bc.retrieveLocation(vehicle.vin);
-  if (response['status'] === 'error') {
-    responseData.location = { message: 'no location available' };
-  } else {
-    responseData.location = response['data'];
-  }
-
-  res.send(responseData);
+  res.send(response);
 };
 
 exports.findWebDataByID = async (req, res) => {
@@ -197,25 +218,30 @@ exports.findWebDataByID = async (req, res) => {
   if (vehicle == undefined) {
     const response = { error: `vehicle with id ${vehicleID} not found.` };
     res.status(404).send(response);
-    return
+    return;
   }
 
   let response = await bc.login();
   if (response['status'] === 'error') {
     res.status(401).send(response);
-    return
+    return;
   }
 
   let htmlFragment = `<div><strong>${vehicle.name}</strong></div>`;
 
-  response = await bc.retrieveBatteryStatus(vehicle.vin);
-  if (response['status'] === 'error') {
-    htmlFragment += `<div>Zurzeit keine Daten vorhanden!</div>`;
+  response = await retrieveAllVehicleData(vehicle);
+  const cockpit = response.cockpit;
+  const attributes = cockpit.data.attributes;
+  htmlFragment += `<div>Kilometerstand: <em>${attributes.totalMileage}</em> km%</div>`;
+
+  const battery = response.battery;
+  if (battery['status'] === 'error') {
+    htmlFragment += `<div>Zurzeit keine Ladeinformationen vorhanden!</div>`;
   } else {
-    const b = response['data'];
-    const timestamp = new Date(b.timestamp).toLocaleString('de-DE');
-    htmlFragment += `<div>Batterielevel: <em>${b.batteryLevel}</em> %</div>`;
-    htmlFragment += `<div>Reichweite: <em>${b.batteryAutonomy}</em> km</div>`;
+    const attributes = battery.data.attributes;
+    const timestamp = new Date(attributes.timestamp).toLocaleString('de-DE');
+    htmlFragment += `<div>Batterielevel: <em>${attributes.batteryLevel}</em> %</div>`;
+    htmlFragment += `<div>Reichweite: <em>${attributes.batteryAutonomy}</em> km</div>`;
     htmlFragment += `<div>Meldezeit: <em>${timestamp}</em></div>`;
   }
   res.send(htmlFragment);

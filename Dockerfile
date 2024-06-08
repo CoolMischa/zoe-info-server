@@ -1,4 +1,4 @@
-FROM node:18.14-buster-slim
+FROM node:18.20-buster-slim
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \

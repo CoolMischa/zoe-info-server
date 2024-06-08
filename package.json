@@ -1,9 +1,9 @@
 {
   "name": "zoe-status-fetcher",
-  "version": "0.9.0",
-  "description": "JavaScript Programm, um die Statusdaten vom Auto auf der WebSeite zuzeigen.",
+  "version": "0.9.1",
+  "description": "JavaScript Programm, um die Statusdaten vom Auto auf der WebSeite zu zeigen.",
   "main": "server.js",
-  "repository": "git@github.com:CoolMischa/ZoePHP.git",
+  "repository": "git@github.com:CoolMischa/zoe-info-server.git",
   "author": "Mischa Soujon",
   "email": "mischa@soujon-net.de",
   "license": "MIT",

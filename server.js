@@ -41,8 +41,8 @@ const options = {
         openapi: "3.0.0",
         info: {
             title: "CMS ZOE Status Server",
-            version: "0.9.0",
-            description: "Mit dieser API könne die Status der beide ZOEs abgerufen und angezeigt werden.",
+            version: "0.9.1",
+            description: "Mit dieser API können die Status der beide ZOEs abgerufen und angezeigt werden.",
             license: {
                 name: "MIT",
                 url: "https://spdx.org/licenses/MIT.html",
@@ -66,7 +66,7 @@ const options = {
 };
 const specs = swaggerJsdoc(options);
 app.use(
-    "/api-docs",
+    "/api/docs",
     swaggerUi.serve,
     swaggerUi.setup(specs, {
         explorer: true
@@ -92,7 +92,7 @@ app.use(bodyParser.urlencoded({
 // simple route to initialize all and return the status
 app.get("/", (req, res) => {
     res.status(200).json({
-        message: "Willkommen zur electrical vehicle Status API. System initialized!"
+        message: "Willkommen zur ZOE Status API. System initialized!"
     });
 });
 
